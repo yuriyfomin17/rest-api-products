@@ -37,7 +37,7 @@ exports.orders_get_all = (req, res, next) => {
 }
 
 exports.orders_create_order = (req, res, next) => {
-    const id  = req.body.productId
+    const id = req.body.productId
     Product.findById(id)
         .then(product => {
 
@@ -100,6 +100,28 @@ exports.orders_get_by_id = (req, res, next) => {
                     getAllOrders: 'http://localhost:3000/orders/'
                 }
             })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        })
+}
+
+exports.orders_delete_by_id = (req, res, next) => {
+    const id = req.params.orderId
+    Order.remove({_id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Order deleted",
+                request: {
+                    type: 'POST',
+                    createOrder: 'http://localhost:3000/orders/',
+                    body: {productId: 'ID', quantity: 'Number'}
+                }
+            })
+
         })
         .catch(err => {
             res.status(500).json({
