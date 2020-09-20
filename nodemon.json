@@ -1,5 +1,6 @@
 {
   "env": {
-    "MONGO_PW": "Fomin2012"
+    "MONGO_PW": "Fomin2012",
+    "JWT_KEY": "secret"
   }
 }
